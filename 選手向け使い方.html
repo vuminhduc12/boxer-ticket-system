@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🥊 チケットサイト 使い方</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0A0A0A; color: #F0EDE6; line-height: 1.8; padding: 1.25rem; max-width: 520px; margin: 0 auto; }
+    h1 { font-size: 1.5rem; color: #E8C547; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.1rem; color: #E8C547; margin: 2rem 0 0.75rem; border-left: 3px solid #C0392B; padding-left: 0.75rem; }
+    p, li { font-size: 0.95rem; color: rgba(240,237,230,0.85); }
+    .badge { display: inline-block; background: #E8C547; color: #0A0A0A; font-size: 0.7rem; font-weight: bold; padding: 0.2rem 0.6rem; margin-bottom: 1rem; }
+    .badge.green { background: #2ecc71; color: #0A0A0A; }
+    .step { background: #141414; border: 1px solid rgba(232,197,71,0.2); padding: 1rem; margin: 0.75rem 0; border-radius: 4px; }
+    .step strong { color: #E8C547; display: block; margin-bottom: 0.35rem; }
+    a { color: #E8C547; }
+    ul { padding-left: 1.25rem; margin: 0.5rem 0; }
+    .pin { background: #1C1C1C; padding: 0.5rem 1rem; font-size: 1.5rem; font-weight: bold; color: #C0392B; text-align: center; margin: 0.5rem 0; }
+    .note { font-size: 0.85rem; color: rgba(240,237,230,0.5); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #333; }
+    .highlight { background: rgba(46,204,113,0.1); border-color: rgba(46,204,113,0.35); }
+  </style>
+</head>
+<body>
+  <span class="badge">無料・スマホOK</span>
+  <h1>🥊 応援チケットサイト<br>使い方ガイド</h1>
+  <p>PC が苦手でも、<strong>スマホ3つ</strong>で運用できます。</p>
+
+  <h2>👥 誰が何をする？</h2>
+  <div class="step highlight">
+    <strong>初回だけ（サポート役）</strong>
+    ネット公開 + Google スプレッドシート連携（30分程度）<br>
+    ジムの人・知人・サイト制作者にお願いするのがおすすめ
+  </div>
+  <div class="step">
+    <strong>日常（選手）</strong>
+    メール確認 · スプレッドシート · 🥊管理（試合情報更新）
+  </div>
+
+  <h2>① 初回セットアップ（サポート役）</h2>
+  <div class="step"><strong>1.</strong> <code>index.html</code> を開き、画面の案内で名前・メール・試合日を入力</div>
+  <div class="step"><strong>2.</strong> Google スプレッドシート + Apps Script を設定（<code>google-apps-script/Code.gs</code>）</div>
+  <div class="step"><strong>3.</strong> 🥊管理 → 公開設定 → API URL を貼って <strong>「連携する ☁️」</strong></div>
+  <div class="step"><strong>4.</strong> Netlify Drop でフォルダを1回公開 → URL を SNS に貼る</div>
+
+  <h2>② 日常の運用（選手 · 毎日）</h2>
+  <div class="step"><strong>📧 申込が来たら</strong>メールアプリで通知を確認</div>
+  <div class="step"><strong>📊 一覧・集計</strong>Google スプレッドシートアプリを開く<br><small>🥊管理 → 集計 →「スプレッドシートで見る」でもOK</small></div>
+  <div class="step"><strong>💰 入金したら</strong>シートの <code>paymentStatus</code> を <code>paid</code> に変更 → 🥊管理 →「最新データを取得」</div>
+
+  <h2>③ 試合前の更新（選手 · スマホ）</h2>
+  <div class="step"><strong>1.</strong> 右下 <strong>🥊 管理</strong> → PIN入力</div>
+  <p class="pin">1234</p>
+  <div class="step"><strong>2.</strong> 「設定」で試合日・会場・ポスター写真を変更</div>
+  <div class="step"><strong>3.</strong> Google 連携済みなら <strong>☁️ クラウドに同期</strong> だけでOK<br><small>Netlify の再アップは不要</small></div>
+
+  <h2>④ スマホに登録（任意）</h2>
+  <div class="step">
+    <strong>チケットサイト</strong> Safari / Chrome → ホーム画面に追加<br>
+    <strong>スプレッドシート</strong> Google Sheets アプリ → シートをホームにピン
+  </div>
+
+  <h2>❓ よくある質問</h2>
+  <div class="step"><strong>集計タブが空</strong>Google 連携が未設定。サポート役に「連携する」を依頼</div>
+  <div class="step"><strong>試合情報を変えた</strong>Google 連携済み → ☁️同期。未連携 → 設定ファイルDL → Netlify再アップ</div>
+  <div class="step"><strong>PINを忘れた</strong>初回は 1234</div>
+
+  <p class="note">困ったときは、サイトを作ってくれた人・ジムのサポート役に相談してください。</p>
+</body>
+</html>
