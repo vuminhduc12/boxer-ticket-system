@@ -1122,6 +1122,1047 @@
     }
 
     details.advanced-setup summary { cursor: pointer; color: var(--muted); font-size: .85rem; padding: .75rem 0; }
+
+    /* UI upgrade: fight-night control room */
+    :root {
+      --black: #070706;
+      --gold: #F2C94C;
+      --red: #D23B32;
+      --off: #F7F1E4;
+      --surf: #11100E;
+      --surf2: #191713;
+      --muted: rgba(247, 241, 228, 0.62);
+      --line: rgba(242, 201, 76, 0.2);
+      --steel: #7EA4A3;
+      --green: #36C48A;
+      --shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
+      --tight-shadow: 0 10px 30px rgba(0, 0, 0, 0.34);
+    }
+
+    html { background: var(--black); }
+
+    body {
+      background:
+        linear-gradient(115deg, rgba(210, 59, 50, 0.12), transparent 34%),
+        linear-gradient(245deg, rgba(126, 164, 163, 0.1), transparent 38%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 5px),
+        var(--black);
+      letter-spacing: 0;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 500;
+      opacity: 0.045;
+      background-image:
+        linear-gradient(90deg, rgba(255,255,255,0.55) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.35) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(180deg, #000, transparent 82%);
+    }
+
+    .container { max-width: 1140px; }
+
+    .hero {
+      min-height: min(76svh, 760px);
+      border-bottom: 1px solid rgba(242, 201, 76, 0.28);
+      background: var(--black);
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: 'FIGHT NIGHT';
+      position: absolute;
+      right: -0.08em;
+      bottom: -0.18em;
+      z-index: 0;
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(4.8rem, 18vw, 15rem);
+      font-weight: 700;
+      line-height: 0.8;
+      color: rgba(247, 241, 228, 0.045);
+      letter-spacing: 0;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .hero::after {
+      height: 5px;
+      background:
+        linear-gradient(90deg, transparent, var(--red) 18%, var(--gold) 52%, var(--steel) 74%, transparent),
+        repeating-linear-gradient(90deg, transparent 0 18px, rgba(255,255,255,.24) 18px 20px);
+      box-shadow: 0 -12px 45px rgba(210, 59, 50, 0.24);
+    }
+
+    .hero-bg {
+      background:
+        linear-gradient(110deg, rgba(7,7,6,0.2) 0 42%, rgba(210,59,50,0.26) 42% 43%, transparent 43%),
+        repeating-linear-gradient(100deg, rgba(242,201,76,0.14) 0 2px, transparent 2px 68px),
+        linear-gradient(180deg, rgba(7,7,6,0.24), rgba(7,7,6,0.94)),
+        var(--black);
+    }
+
+    .hero.has-photo .hero-bg {
+      background:
+        linear-gradient(90deg, rgba(7,7,6,.72) 0%, rgba(7,7,6,.46) 42%, rgba(7,7,6,.94) 100%),
+        linear-gradient(180deg, rgba(7,7,6,.24) 0%, rgba(7,7,6,.92) 86%, var(--black) 100%);
+    }
+
+    .hero-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding-top: clamp(4.5rem, 9vw, 7rem);
+      padding-bottom: clamp(3rem, 7vw, 5.5rem);
+    }
+
+    .hero-eyebrow,
+    .fighter-preview-label {
+      display: inline-flex;
+      width: fit-content;
+      padding: 0.42rem 0.7rem;
+      border: 1px solid rgba(242, 201, 76, 0.32);
+      background: rgba(7, 7, 6, 0.58);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    .hero-title {
+      max-width: 10ch;
+      text-wrap: balance;
+      text-shadow: 0 16px 36px rgba(0,0,0,0.55);
+    }
+
+    .hero-name-ja {
+      max-width: 36rem;
+      color: rgba(247, 241, 228, 0.76);
+      font-size: 1.05rem;
+    }
+
+    .hero-profile {
+      box-shadow: 0 0 0 7px rgba(242,201,76,0.08), 0 18px 44px rgba(0,0,0,0.45);
+    }
+
+    .hero-poster,
+    .fight-poster {
+      border: 1px solid rgba(242, 201, 76, 0.5);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-meta {
+      max-width: 720px;
+      padding: 1rem 0 0;
+      border-top-color: rgba(242, 201, 76, 0.28);
+    }
+
+    .hero-sub {
+      color: rgba(247, 241, 228, 0.78);
+      font-weight: 600;
+    }
+
+    .btn {
+      min-height: 42px;
+      border-radius: 0;
+      transform: translateZ(0);
+    }
+
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #E04738 0%, #AE251F 52%, #6F1918 100%);
+      box-shadow: 0 16px 36px rgba(210, 59, 50, 0.28);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      transform: translateX(-110%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.24), transparent);
+      transition: transform 0.42s ease;
+    }
+
+    .btn-primary:hover::before { transform: translateX(110%); }
+
+    .btn-outline {
+      background: rgba(7, 7, 6, 0.35);
+      border-color: rgba(242, 201, 76, 0.45);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.035);
+    }
+
+    section { padding-top: clamp(3.5rem, 7vw, 6rem); padding-bottom: clamp(3.5rem, 7vw, 6rem); }
+    section.alt {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.025), transparent 28%),
+        var(--surf);
+    }
+
+    .section-head {
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(242, 201, 76, 0.22);
+      padding-bottom: 1rem;
+    }
+
+    .section-title {
+      display: grid;
+      gap: 0.15rem;
+      letter-spacing: 0.06em;
+    }
+
+    .section-title span { color: var(--steel); }
+
+    .ticket-grid, .payment-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .ticket-card,
+    .payment-card,
+    .settings-section,
+    .breakdown-box,
+    .stat-card,
+    .app-card,
+    .quick-edit,
+    .login-box,
+    .wizard-box {
+      border-color: rgba(242, 201, 76, 0.22);
+      background:
+        linear-gradient(150deg, rgba(255,255,255,0.055), transparent 42%),
+        var(--surf2);
+      box-shadow: var(--tight-shadow);
+    }
+
+    .ticket-card {
+      min-height: 236px;
+      display: flex;
+      flex-direction: column;
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+    }
+
+    .ticket-card::after {
+      content: '';
+      position: absolute;
+      left: 1.5rem;
+      right: 1.5rem;
+      bottom: 4.85rem;
+      border-top: 1px dashed rgba(242, 201, 76, 0.28);
+    }
+
+    .ticket-card.featured {
+      background:
+        linear-gradient(145deg, rgba(242,201,76,.13), rgba(126,164,163,0.06) 46%, var(--surf2)),
+        var(--surf2);
+      box-shadow: 0 0 0 1px rgba(242,201,76,.24), 0 24px 60px rgba(0,0,0,.4);
+    }
+
+    .ticket-type { color: var(--off); }
+    .ticket-price { color: var(--gold); text-shadow: 0 10px 30px rgba(242,201,76,0.14); }
+    .ticket-apply-btn { margin-top: auto; }
+
+    .apply-block {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(320px, 520px);
+      gap: clamp(1.5rem, 5vw, 4rem);
+      align-items: start;
+      border-top-color: rgba(242, 201, 76, 0.22);
+    }
+
+    .apply-heading {
+      position: sticky;
+      top: 1.25rem;
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: 0.06em;
+    }
+
+    .apply-heading::after {
+      content: '応援の名前を、リングサイドへ。';
+      display: block;
+      max-width: 18rem;
+      margin-top: 0.85rem;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1.7;
+      color: var(--muted);
+      text-transform: none;
+    }
+
+    .form-wrapper,
+    .thank-you {
+      min-width: 0;
+    }
+
+    .form-grid {
+      max-width: none;
+      padding: clamp(1.1rem, 3vw, 1.6rem);
+      border: 1px solid rgba(242, 201, 76, 0.22);
+      background:
+        linear-gradient(150deg, rgba(126,164,163,0.08), transparent 44%),
+        rgba(7, 7, 6, 0.42);
+      box-shadow: var(--tight-shadow);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea,
+    .status-select {
+      border-color: rgba(242, 201, 76, 0.22);
+      background-color: rgba(7, 7, 6, 0.72);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.045);
+    }
+
+    .form-group input:hover,
+    .form-group select:hover,
+    .form-group textarea:hover {
+      border-color: rgba(242, 201, 76, 0.38);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(242,201,76,0.12);
+    }
+
+    .payment-details,
+    .alt-apply,
+    .sync-banner,
+    .fighter-dash-hint,
+    .dash-details,
+    .fighter-apps-hint {
+      border-color: rgba(242, 201, 76, 0.22);
+      background: rgba(7, 7, 6, 0.42);
+    }
+
+    .admin-trigger {
+      background: linear-gradient(135deg, var(--red), #861E1B);
+      box-shadow: 0 16px 42px rgba(210, 59, 50, 0.42);
+      border-color: rgba(242, 201, 76, 0.78);
+    }
+
+    .admin-overlay {
+      background:
+        linear-gradient(135deg, rgba(210,59,50,0.12), transparent 38%),
+        linear-gradient(235deg, rgba(126,164,163,0.1), transparent 42%),
+        var(--black);
+    }
+
+    .admin-header,
+    .admin-tabs,
+    .admin-bottom-nav {
+      background: rgba(17, 16, 14, 0.94);
+      backdrop-filter: blur(14px);
+    }
+
+    .admin-tab.active,
+    .bottom-nav-btn.active {
+      color: var(--off);
+      background: linear-gradient(180deg, rgba(242,201,76,0.12), transparent);
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .stat-card {
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--steel));
+      opacity: 0.82;
+    }
+
+    .stat-label { color: rgba(247, 241, 228, 0.7); }
+
+    .fighter-profile-section {
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(130deg, rgba(210,59,50,0.18), transparent 42%),
+        linear-gradient(300deg, rgba(126,164,163,0.1), transparent 48%),
+        var(--surf);
+    }
+
+    .fighter-preview {
+      background:
+        repeating-linear-gradient(100deg, rgba(242,201,76,0.12) 0 1px, transparent 1px 56px),
+        var(--black);
+    }
+
+    .table-wrap {
+      border-color: rgba(242, 201, 76, 0.22);
+      box-shadow: var(--tight-shadow);
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #201D18;
+    }
+
+    td { border-top-color: rgba(242, 201, 76, 0.13); }
+    tr:hover td { background: rgba(242, 201, 76, 0.055); }
+
+    .toast,
+    .install-banner {
+      border-color: rgba(242, 201, 76, 0.52);
+      background: rgba(25, 23, 19, 0.96);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .wizard-overlay {
+      background:
+        linear-gradient(135deg, rgba(210,59,50,0.22), transparent 38%),
+        rgba(7,7,6,0.96);
+    }
+
+    .wizard-box {
+      width: min(540px, 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .free-badge {
+      background: linear-gradient(135deg, var(--gold), #FFE08A);
+    }
+
+    @media (max-width: 760px) {
+      .hero { min-height: min(72svh, 680px); }
+      .hero-inner { padding-top: 4rem; }
+      .hero::before {
+        right: -1.2rem;
+        bottom: 0.3rem;
+        writing-mode: vertical-rl;
+        font-size: clamp(3.8rem, 18vw, 6.5rem);
+      }
+      .apply-block {
+        display: block;
+      }
+      .apply-heading {
+        position: static;
+        margin-bottom: 1.5rem;
+      }
+      .ticket-card { min-height: 220px; }
+    }
+
+    @media (max-width: 640px) {
+      .section-head { align-items: flex-start; }
+      .hero-meta { gap: 0.85rem; }
+      .hero-meta .btn { width: 100%; }
+      .form-grid { padding: 1rem; }
+      .admin-body { padding: 1rem; }
+      .admin-header { padding: 0.85rem 1rem; }
+      .admin-header > div:last-child { gap: 0.45rem; }
+      .stats-grid-hero { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .stat-card { padding: 1rem; }
+    }
+
+
+    /* UI color boost: championship neon palette */
+    :root {
+      --black: #050507;
+      --gold: #FFD166;
+      --red: #FF3B30;
+      --off: #FFF7E6;
+      --surf: #101217;
+      --surf2: #171A21;
+      --muted: rgba(255, 247, 230, 0.66);
+      --line: rgba(255, 209, 102, 0.22);
+      --steel: #28D7C7;
+      --green: #3EF08F;
+      --violet: #8A5CF6;
+      --blue: #4DA3FF;
+      --amber-glow: rgba(255, 209, 102, 0.22);
+      --red-glow: rgba(255, 59, 48, 0.26);
+      --cyan-glow: rgba(40, 215, 199, 0.18);
+    }
+
+    body {
+      background:
+        linear-gradient(126deg, rgba(255, 59, 48, 0.16), transparent 31%),
+        linear-gradient(238deg, rgba(40, 215, 199, 0.14), transparent 42%),
+        linear-gradient(180deg, rgba(255, 209, 102, 0.055), transparent 34%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.032) 0 1px, transparent 1px 5px),
+        #050507;
+    }
+
+    .hero {
+      border-bottom-color: rgba(40, 215, 199, 0.35);
+      box-shadow: inset 0 -90px 140px rgba(255, 59, 48, 0.08);
+    }
+
+    .hero::before {
+      color: rgba(40, 215, 199, 0.07);
+      text-shadow: 0 0 60px rgba(40, 215, 199, 0.16);
+    }
+
+    .hero::after {
+      background:
+        linear-gradient(90deg, transparent, var(--red) 14%, var(--gold) 40%, var(--steel) 66%, var(--violet) 84%, transparent),
+        repeating-linear-gradient(90deg, transparent 0 16px, rgba(255,255,255,.28) 16px 18px);
+      box-shadow:
+        0 -16px 52px var(--red-glow),
+        0 -7px 34px var(--cyan-glow);
+    }
+
+    .hero-bg {
+      background:
+        linear-gradient(112deg, rgba(5,5,7,0.08) 0 37%, rgba(255,59,48,0.28) 37% 38%, transparent 38%),
+        linear-gradient(72deg, transparent 0 58%, rgba(40,215,199,0.18) 58% 59%, transparent 59%),
+        repeating-linear-gradient(100deg, rgba(255,209,102,0.16) 0 2px, transparent 2px 68px),
+        linear-gradient(180deg, rgba(5,5,7,0.12), rgba(5,5,7,0.96)),
+        #050507;
+    }
+
+    .hero.has-photo .hero-bg {
+      background:
+        linear-gradient(90deg, rgba(5,5,7,.77) 0%, rgba(5,5,7,.42) 42%, rgba(5,5,7,.96) 100%),
+        linear-gradient(130deg, rgba(255,59,48,.22), transparent 40%),
+        linear-gradient(250deg, rgba(40,215,199,.18), transparent 44%),
+        linear-gradient(180deg, rgba(5,5,7,.18) 0%, rgba(5,5,7,.92) 86%, #050507 100%);
+    }
+
+    .hero-eyebrow,
+    .fighter-preview-label,
+    .fight-label,
+    .section-title span,
+    .payment-card h3,
+    .settings-section h3,
+    .breakdown-box h3,
+    .quick-edit h3,
+    .alt-apply summary,
+    .dash-details summary {
+      color: var(--steel);
+      text-shadow: 0 0 22px rgba(40, 215, 199, 0.18);
+    }
+
+    .hero-eyebrow,
+    .fighter-preview-label {
+      border-color: rgba(40, 215, 199, 0.42);
+      background:
+        linear-gradient(90deg, rgba(40,215,199,0.12), rgba(255,209,102,0.08)),
+        rgba(5,5,7,0.62);
+    }
+
+    .hero-title {
+      color: var(--off);
+      text-shadow:
+        0 16px 40px rgba(0,0,0,0.72),
+        0 0 34px rgba(255, 209, 102, 0.12);
+    }
+
+    .hero-fight-meta {
+      color: rgba(255, 247, 230, 0.92);
+      text-shadow: 0 0 24px rgba(255, 59, 48, 0.18);
+    }
+
+    .btn-primary {
+      background:
+        linear-gradient(135deg, #FF3B30 0%, #C71528 42%, #6E1FCE 100%);
+      box-shadow:
+        0 16px 40px rgba(255, 59, 48, 0.26),
+        0 0 0 1px rgba(255, 209, 102, 0.16) inset;
+    }
+
+    .btn-primary:hover {
+      background:
+        linear-gradient(135deg, #FFD166 0%, #FFB000 48%, #28D7C7 100%);
+      color: #050507;
+      box-shadow:
+        0 18px 46px rgba(255, 209, 102, 0.26),
+        0 0 34px rgba(40, 215, 199, 0.16);
+    }
+
+    .btn-outline {
+      color: var(--steel);
+      border-color: rgba(40, 215, 199, 0.46);
+      background:
+        linear-gradient(135deg, rgba(40,215,199,0.09), rgba(255,209,102,0.05)),
+        rgba(5,5,7,0.42);
+    }
+
+    .btn-outline:hover {
+      background: var(--steel);
+      border-color: var(--steel);
+      color: #050507;
+      box-shadow: 0 12px 30px rgba(40, 215, 199, 0.22);
+    }
+
+    .ticket-card,
+    .payment-card,
+    .settings-section,
+    .breakdown-box,
+    .stat-card,
+    .app-card,
+    .quick-edit,
+    .login-box,
+    .wizard-box,
+    .form-grid {
+      border-color: rgba(255, 209, 102, 0.2);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.07), transparent 35%),
+        linear-gradient(315deg, rgba(40,215,199,0.055), transparent 42%),
+        var(--surf2);
+    }
+
+    .ticket-card:nth-child(3n + 1) {
+      border-color: rgba(255, 209, 102, 0.3);
+      background:
+        linear-gradient(145deg, rgba(255,209,102,0.12), transparent 36%),
+        linear-gradient(320deg, rgba(255,59,48,0.07), transparent 48%),
+        var(--surf2);
+    }
+
+    .ticket-card:nth-child(3n + 2) {
+      border-color: rgba(40, 215, 199, 0.32);
+      background:
+        linear-gradient(145deg, rgba(40,215,199,0.12), transparent 36%),
+        linear-gradient(320deg, rgba(77,163,255,0.08), transparent 48%),
+        var(--surf2);
+    }
+
+    .ticket-card:nth-child(3n) {
+      border-color: rgba(255, 59, 48, 0.32);
+      background:
+        linear-gradient(145deg, rgba(255,59,48,0.13), transparent 36%),
+        linear-gradient(320deg, rgba(255,209,102,0.08), transparent 48%),
+        var(--surf2);
+    }
+
+    .ticket-card.featured {
+      border-color: rgba(255, 209, 102, 0.62);
+      background:
+        linear-gradient(145deg, rgba(255,209,102,.18), rgba(255,59,48,0.1) 40%, rgba(40,215,199,0.08) 72%, var(--surf2)),
+        var(--surf2);
+      box-shadow:
+        0 0 0 1px rgba(255,209,102,.28),
+        0 24px 70px rgba(255, 59, 48, 0.13),
+        0 12px 52px rgba(40, 215, 199, 0.1);
+    }
+
+    .ticket-price {
+      color: var(--gold);
+      text-shadow:
+        0 0 18px rgba(255, 209, 102, 0.14),
+        0 12px 30px rgba(0,0,0,0.35);
+    }
+
+    .badge,
+    .free-badge {
+      background: linear-gradient(135deg, var(--gold), #FFB000 48%, var(--green));
+      color: #050507;
+      box-shadow: 0 10px 28px rgba(255, 209, 102, 0.2);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea,
+    .status-select {
+      border-color: rgba(40, 215, 199, 0.22);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.035), transparent),
+        rgba(5, 5, 7, 0.76);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--steel);
+      box-shadow:
+        0 0 0 3px rgba(40,215,199,0.14),
+        0 0 24px rgba(40,215,199,0.08);
+    }
+
+    .req,
+    .payment-warn,
+    .stat-card.red .stat-value {
+      color: #FF6A5F;
+    }
+
+    .sync-banner {
+      background: linear-gradient(135deg, rgba(255,209,102,0.12), rgba(40,215,199,0.06));
+      border-color: rgba(255, 209, 102, 0.38);
+    }
+
+    .sync-banner.warn {
+      background: linear-gradient(135deg, rgba(255,59,48,0.14), rgba(255,209,102,0.05));
+      border-color: rgba(255, 59, 48, 0.48);
+    }
+
+    .sync-banner.ok,
+    .cloud-connected-banner {
+      background: linear-gradient(135deg, rgba(62,240,143,0.13), rgba(40,215,199,0.08));
+      border-color: rgba(62, 240, 143, 0.46);
+    }
+
+    .admin-trigger {
+      background: linear-gradient(135deg, #FF3B30, #6E1FCE 58%, #28D7C7);
+      box-shadow:
+        0 18px 46px rgba(255, 59, 48, 0.3),
+        0 0 30px rgba(40, 215, 199, 0.14);
+    }
+
+    .admin-header,
+    .admin-tabs,
+    .admin-bottom-nav {
+      border-color: rgba(40, 215, 199, 0.2);
+      background:
+        linear-gradient(90deg, rgba(255,59,48,0.08), rgba(40,215,199,0.07)),
+        rgba(16, 18, 23, 0.94);
+    }
+
+    .admin-tab.active,
+    .bottom-nav-btn.active {
+      color: #fff;
+      border-bottom-color: var(--steel);
+      background:
+        linear-gradient(180deg, rgba(40,215,199,0.18), rgba(255,209,102,0.06) 62%, transparent);
+    }
+
+    .stat-value {
+      color: var(--gold);
+      text-shadow: 0 0 24px rgba(255, 209, 102, 0.12);
+    }
+
+    .stat-card:nth-child(2n) .stat-value { color: var(--steel); }
+    .stat-card:nth-child(3n) .stat-value { color: var(--green); }
+
+    .stat-card::after {
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--steel), var(--green));
+    }
+
+    .fighter-profile-section {
+      border-color: rgba(40, 215, 199, 0.28);
+      background:
+        linear-gradient(130deg, rgba(255,59,48,0.18), transparent 38%),
+        linear-gradient(300deg, rgba(40,215,199,0.16), transparent 48%),
+        linear-gradient(20deg, rgba(255,209,102,0.08), transparent 54%),
+        var(--surf);
+    }
+
+    .fighter-preview::before {
+      background: linear-gradient(180deg, var(--red), var(--gold), var(--steel));
+      box-shadow: 0 0 22px rgba(40, 215, 199, 0.18);
+    }
+
+    th {
+      color: var(--steel);
+      background:
+        linear-gradient(90deg, rgba(40,215,199,0.1), rgba(255,209,102,0.055)),
+        #1A1E27;
+    }
+
+    tr:hover td {
+      background: rgba(40, 215, 199, 0.06);
+    }
+
+    .toast,
+    .install-banner {
+      border-color: rgba(40, 215, 199, 0.46);
+      background:
+        linear-gradient(135deg, rgba(40,215,199,0.08), rgba(255,209,102,0.08)),
+        rgba(16, 18, 23, 0.97);
+    }
+
+    .wizard-overlay {
+      background:
+        linear-gradient(135deg, rgba(255,59,48,0.22), transparent 34%),
+        linear-gradient(245deg, rgba(40,215,199,0.16), transparent 46%),
+        rgba(5,5,7,0.96);
+    }
+
+    .wizard-dot.done { background: var(--green); }
+    .wizard-dot.active { background: var(--steel); box-shadow: 0 0 18px rgba(40, 215, 199, 0.3); }
+    /* End UI color boost */
+
+
+    /* First-view premium poster treatment */
+    .hero {
+      min-height: min(84svh, 820px);
+    }
+
+    .hero::before {
+      content: 'NEXT BOUT';
+      right: clamp(-1.4rem, -1vw, -0.2rem);
+      bottom: clamp(1.6rem, 4vw, 3rem);
+      font-size: clamp(5.5rem, 20vw, 17rem);
+      color: rgba(255, 247, 230, 0.055);
+      text-shadow:
+        0 0 70px rgba(255, 209, 102, 0.12),
+        0 0 110px rgba(40, 215, 199, 0.12);
+    }
+
+    .hero-bg::before,
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .hero-bg::before {
+      inset: -22% -14% auto;
+      height: 56%;
+      background:
+        radial-gradient(ellipse at 18% 15%, rgba(255,209,102,0.36), transparent 36%),
+        radial-gradient(ellipse at 78% 20%, rgba(40,215,199,0.25), transparent 38%),
+        radial-gradient(ellipse at 52% 0%, rgba(255,59,48,0.2), transparent 42%);
+      filter: blur(22px);
+      opacity: 0.9;
+    }
+
+    .hero-bg::after {
+      inset: 0;
+      background:
+        linear-gradient(115deg, transparent 0 48%, rgba(255,209,102,0.1) 48% 48.5%, transparent 48.5%),
+        linear-gradient(68deg, transparent 0 62%, rgba(40,215,199,0.11) 62% 62.5%, transparent 62.5%),
+        radial-gradient(circle at 78% 44%, rgba(255,255,255,0.11), transparent 18%);
+      mix-blend-mode: screen;
+      opacity: 0.86;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 0.98fr) minmax(280px, 0.48fr);
+      grid-template-areas:
+        "eyebrow fight"
+        "profile fight"
+        "title fight"
+        "name fight"
+        "meta fight";
+      column-gap: clamp(1.5rem, 5vw, 5rem);
+      align-items: center;
+    }
+
+    .hero-eyebrow { grid-area: eyebrow; }
+    .hero-profile { grid-area: profile; }
+    .hero-title { grid-area: title; }
+    .hero-name-ja { grid-area: name; }
+    .hero-fight { grid-area: fight; }
+    .hero-meta { grid-area: meta; }
+
+    .hero-fight {
+      position: relative;
+      width: min(100%, 430px);
+      justify-self: end;
+      margin: 0;
+      padding: 1.1rem;
+      border: 1px solid rgba(255, 209, 102, 0.34);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.08), transparent 38%),
+        linear-gradient(320deg, rgba(40,215,199,0.12), rgba(255,59,48,0.08) 58%, transparent),
+        rgba(5, 5, 7, 0.68);
+      box-shadow:
+        0 30px 90px rgba(0,0,0,0.42),
+        0 0 0 1px rgba(255,255,255,0.045) inset,
+        0 0 56px rgba(40,215,199,0.11);
+      backdrop-filter: blur(12px);
+      clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+    }
+
+    .hero-fight::before {
+      content: 'LIVE TICKET';
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0.38rem 0.7rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      color: #050507;
+      background: linear-gradient(135deg, var(--gold), var(--green));
+      z-index: 2;
+    }
+
+    .hero-fight::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(40,215,199,0.16);
+      transform: translate(8px, 8px);
+      z-index: -1;
+    }
+
+    .hero-poster {
+      display: block;
+      width: 100%;
+      max-width: none;
+      max-height: min(42svh, 420px);
+      object-fit: cover;
+      margin: 0 0 1rem;
+      border-color: rgba(255, 247, 230, 0.32);
+    }
+
+    .hero-poster.hidden + .hero-fight-meta {
+      margin-top: 2.2rem;
+    }
+
+    .hero-fight-meta {
+      padding: 0.95rem 0 0.75rem;
+      border-top: 1px solid rgba(255, 209, 102, 0.18);
+      font-size: clamp(0.92rem, 1.8vw, 1.18rem);
+    }
+
+    .hero-fight-chips {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.75rem;
+    }
+
+    .hero-chip {
+      min-width: 0;
+      padding: 0.62rem 0.6rem;
+      border: 1px solid rgba(40, 215, 199, 0.24);
+      background:
+        linear-gradient(145deg, rgba(40,215,199,0.1), rgba(255,209,102,0.055)),
+        rgba(5, 5, 7, 0.54);
+    }
+
+    .hero-chip strong,
+    .hero-chip span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .hero-chip strong {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      color: var(--steel);
+      text-transform: uppercase;
+      margin-bottom: 0.18rem;
+    }
+
+    .hero-chip span {
+      font-size: 0.78rem;
+      color: rgba(255, 247, 230, 0.86);
+      font-weight: 600;
+    }
+
+    .hero-notice {
+      color: rgba(255, 247, 230, 0.58);
+      font-size: 0.74rem;
+    }
+
+    .hero-meta {
+      margin-top: clamp(2rem, 4vw, 3rem);
+      max-width: 760px;
+      align-items: stretch;
+      background:
+        linear-gradient(90deg, rgba(255,59,48,0.11), rgba(40,215,199,0.08)),
+        rgba(5,5,7,0.46);
+      padding: 1rem;
+      border: 1px solid rgba(255, 209, 102, 0.22);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.26);
+    }
+
+    .hero-sub {
+      display: flex;
+      align-items: center;
+      max-width: 26rem;
+      font-size: 0.98rem;
+    }
+
+    .hero-meta .btn-primary {
+      min-width: min(100%, 260px);
+      font-size: 0.96rem;
+      letter-spacing: 0.14em;
+    }
+
+    .ticket-grid {
+      margin-top: -0.25rem;
+    }
+
+    .ticket-card {
+      transform-origin: center;
+    }
+
+    .ticket-card:hover {
+      transform: translateY(-7px) scale(1.012);
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "eyebrow"
+          "profile"
+          "title"
+          "name"
+          "fight"
+          "meta";
+        row-gap: 0.85rem;
+      }
+
+      .hero-fight {
+        width: 100%;
+        justify-self: stretch;
+        margin-top: 1rem;
+      }
+
+      .hero-poster {
+        max-height: 320px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        min-height: auto;
+      }
+
+      .hero::before {
+        content: 'BOUT';
+        right: -0.9rem;
+        bottom: 1.2rem;
+      }
+
+      .hero-inner {
+        padding-top: 3.25rem;
+        padding-bottom: 2.75rem;
+      }
+
+      .hero-title {
+        font-size: clamp(3rem, 17vw, 5.8rem);
+      }
+
+      .hero-fight {
+        padding: 0.9rem;
+      }
+
+      .hero-fight-chips {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-chip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+      }
+
+      .hero-chip strong,
+      .hero-chip span {
+        white-space: normal;
+      }
+
+      .hero-meta {
+        padding: 0.9rem;
+      }
+    }
+    /* End first-view premium poster treatment */
+
   </style>
 </head>
 <body>
@@ -1138,11 +2179,16 @@
         <div class="hero-fight">
           <img class="hero-poster fight-poster hidden" id="fightPoster" alt="Fight Poster">
           <p class="hero-fight-meta" id="heroFightMeta"></p>
+          <div class="hero-fight-chips" aria-label="試合情報">
+            <div class="hero-chip"><strong>Date</strong><span id="heroDateChip">-</span></div>
+            <div class="hero-chip"><strong>Venue</strong><span id="heroVenueChip">-</span></div>
+            <div class="hero-chip"><strong>Start</strong><span id="heroStartChip">-</span></div>
+          </div>
           <p class="hero-notice">※ 試合日・会場・開始時間は変更になる場合があります。最新情報はSNSでご確認ください。</p>
         </div>
         <div class="hero-meta">
-          <p class="hero-sub">応援チケット 申し込みページ</p>
-          <a href="#apply" class="btn btn-primary">Get Tickets</a>
+          <p class="hero-sub">この一戦を会場で。応援チケット受付中</p>
+          <a href="#apply" class="btn btn-primary">チケットを申し込む</a>
         </div>
       </div>
     </section>
@@ -1343,7 +2389,7 @@
               <div class="form-group"><label>試合日</label><input type="text" id="qFightDate"></div>
               <div class="form-group"><label>会場</label><input type="text" id="qVenue"></div>
               <div class="form-group"><label>ポスター写真</label>
-                <label class="photo-upload-btn"><input type="file" id="qPosterFile" accept="image/*" capture="environment">📷 カメラ / ギャラリー</label>
+                <label class="photo-upload-btn"><input type="file" id="qPosterFile" accept="image/*">写真ライブラリから選択</label>
                 <div class="photo-actions">
                   <button type="button" class="photo-delete-btn hidden" id="qPosterDelete">🗑 写真を削除</button>
                 </div>
@@ -1427,12 +2473,12 @@
             </div>
             <div class="settings-section">
               <h3>写真・画像（試合ごとに変更OK）</h3>
-              <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">画像URLを入力するか、ファイルをアップロードしてください（推奨: 500KB以下）</p>
+              <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">画像URLを入力するか、スマホの写真ライブラリから選択してください（推奨: 500KB以下）</p>
               <div class="settings-grid">
                 <div class="form-group">
                   <label>ヒーロー背景写真</label>
                   <input type="url" id="sPhotoHeroUrl" placeholder="https://... または下でアップロード">
-                  <label class="photo-upload-btn"><input type="file" id="sPhotoHeroFile" accept="image/*" capture="environment">📷 カメラで撮影 / 選択</label>
+                  <label class="photo-upload-btn"><input type="file" id="sPhotoHeroFile" accept="image/*">写真ライブラリから選択</label>
                   <img class="photo-preview" id="prevHero" alt="">
                   <div class="photo-actions">
                     <button type="button" class="photo-delete-btn hidden" data-clear="photoHero" data-url="sPhotoHeroUrl" data-file="sPhotoHeroFile" data-preview="prevHero">🗑 写真を削除</button>
@@ -1441,7 +2487,7 @@
                 <div class="form-group">
                   <label>プロフィール写真（丸型）</label>
                   <input type="url" id="sPhotoProfileUrl" placeholder="https://...">
-                  <label class="photo-upload-btn"><input type="file" id="sPhotoProfileFile" accept="image/*" capture="user">📷 自撮り / 選択</label>
+                  <label class="photo-upload-btn"><input type="file" id="sPhotoProfileFile" accept="image/*">写真ライブラリから選択</label>
                   <img class="photo-preview" id="prevProfile" alt="">
                   <div class="photo-actions">
                     <button type="button" class="photo-delete-btn hidden" data-clear="photoProfile" data-url="sPhotoProfileUrl" data-file="sPhotoProfileFile" data-preview="prevProfile">🗑 写真を削除</button>
@@ -1450,7 +2496,7 @@
                 <div class="form-group">
                   <label>試合ポスター</label>
                   <input type="url" id="sPhotoPosterUrl" placeholder="https://...">
-                  <label class="photo-upload-btn"><input type="file" id="sPhotoPosterFile" accept="image/*" capture="environment">📷 カメラ / ギャラリー</label>
+                  <label class="photo-upload-btn"><input type="file" id="sPhotoPosterFile" accept="image/*">写真ライブラリから選択</label>
                   <img class="photo-preview" id="prevPoster" alt="">
                   <div class="photo-actions">
                     <button type="button" class="photo-delete-btn hidden" data-clear="photoPoster" data-url="sPhotoPosterUrl" data-file="sPhotoPosterFile" data-preview="prevPoster">🗑 写真を削除</button>
@@ -1652,14 +2698,17 @@
 
     async function loadPublicConfig() {
       let settings = { ...DEFAULTS };
+      let publicSetupComplete = false;
       try {
         const cfg = await fetchJson(CONFIG_FILE + '?t=' + Date.now());
+        publicSetupComplete = cfg && cfg.setupComplete === true;
         settings = sanitizePublicSettings({ ...settings, ...cfg });
       } catch (_) {}
 
       const local = loadLocal();
       if (local) {
         settings = { ...settings, ...sanitizePublicSettings(local.settings) };
+        if (publicSetupComplete) settings.setupComplete = true;
         if (local.settings.pin) settings.pin = local.settings.pin;
       } else {
         delete settings.pin;
@@ -1905,6 +2954,9 @@
       document.getElementById('heroNameJa').textContent = s.nameJa;
       document.getElementById('heroFightMeta').textContent =
         s.fightDate + ' · ' + s.venue + ' · 開場 ' + s.doors + ' / 開始 ' + s.start;
+      document.getElementById('heroDateChip').textContent = s.fightDate || '-';
+      document.getElementById('heroVenueChip').textContent = s.venue || '-';
+      document.getElementById('heroStartChip').textContent = (s.doors || '-') + ' / ' + (s.start || '-');
 
       const hero = document.getElementById('top');
       const heroBg = document.getElementById('heroBg');
