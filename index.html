@@ -2163,14 +2163,364 @@
     }
     /* End first-view premium poster treatment */
 
+
+    /* ════════════════════════════════════════════════
+       FLASHY MOTION & LIGHTING LAYER  (final pass)
+       ════════════════════════════════════════════════ */
+    @keyframes hqRise {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes hqSheen {
+      0%   { background-position: 130% 0; }
+      24%  { background-position: -30% 0; }
+      100% { background-position: -30% 0; }
+    }
+    @keyframes hqBreathe {
+      0%, 100% { opacity: 0.62; transform: translateY(0) scale(1); }
+      50%      { opacity: 1;    transform: translateY(-14px) scale(1.04); }
+    }
+    @keyframes hqDrift {
+      from { transform: translateX(-2.2%) translateY(-0.6%); }
+      to   { transform: translateX(2.2%) translateY(0.6%); }
+    }
+    @keyframes hqLineFlow {
+      to { background-position: 200% 0, 18px 0; }
+    }
+    @keyframes hqCtaPulse {
+      0%, 100% { box-shadow: 0 16px 40px rgba(255,59,48,.26), 0 0 0 0 rgba(255,209,102,0); }
+      50%      { box-shadow: 0 20px 52px rgba(255,59,48,.42), 0 0 38px rgba(40,215,199,.26); }
+    }
+    @keyframes hqBadgeGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(62,240,143,0); filter: brightness(1); }
+      50%      { box-shadow: 0 0 22px 2px rgba(62,240,143,.5); filter: brightness(1.12); }
+    }
+    @keyframes hqRing {
+      0%   { transform: scale(1);    opacity: .6; }
+      100% { transform: scale(1.55); opacity: 0; }
+    }
+    @keyframes hqGridDrift {
+      to { background-position: 44px 88px, 88px 44px; }
+    }
+    @keyframes hqFloat {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-5px); }
+    }
+    @keyframes hqStatBar {
+      0%   { background-position: 0 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* — animated ambient grid — */
+    body::before { animation: hqGridDrift 26s linear infinite; }
+
+    /* — hero entrance stagger — */
+    .hero-inner > * { animation: hqRise .72s cubic-bezier(.2,.7,.2,1) both; }
+    .hero-eyebrow { animation-delay: .04s; }
+    .hero-profile { animation-delay: .12s; }
+    .hero-name-ja { animation-delay: .26s; }
+    .hero-fight   { animation-delay: .34s; }
+    .hero-meta    { animation-delay: .44s; }
+
+    /* — hero aurora breathing + parallax drift — */
+    .hero-bg::before { animation: hqBreathe 9s ease-in-out infinite; }
+    .hero-bg::after  { animation: hqDrift 16s ease-in-out infinite alternate; }
+
+    /* — animated bottom power line — */
+    .hero::after {
+      background-size: 200% 100%, 28px 100%;
+      animation: hqLineFlow 5s linear infinite;
+    }
+
+    /* — metallic title with light sweep — */
+    .hero-title {
+      animation: hqRise .72s cubic-bezier(.2,.7,.2,1) .18s both, hqSheen 8s ease-in-out 1.5s infinite;
+      background-image: linear-gradient(96deg, #FFF7E6 0%, #FFF7E6 40%, #FFE9A8 47%, #FFD166 50%, #FFE9A8 53%, #FFF7E6 60%, #FFF7E6 100%);
+      background-size: 260% 100%;
+      background-position: 130% 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      filter: drop-shadow(0 16px 40px rgba(0,0,0,.72)) drop-shadow(0 0 30px rgba(255,209,102,.16));
+      text-shadow: none;
+    }
+
+    /* — live ticket badge pulse — */
+    .hero-fight::before { animation: hqBadgeGlow 2.6s ease-in-out infinite; }
+
+    /* — pulsing primary CTA in hero — */
+    .hero-meta .btn-primary { animation: hqCtaPulse 2.8s ease-in-out infinite; }
+
+    /* — ticket cards: staggered reveal + light sweep on hover — */
+    .ticket-grid .ticket-card { animation: hqRise .6s cubic-bezier(.2,.7,.2,1) both; }
+    .ticket-grid .ticket-card:nth-child(1) { animation-delay: .05s; }
+    .ticket-grid .ticket-card:nth-child(2) { animation-delay: .14s; }
+    .ticket-grid .ticket-card:nth-child(3) { animation-delay: .23s; }
+    .ticket-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -65%;
+      width: 55%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.1), transparent);
+      transform: skewX(-18deg);
+      pointer-events: none;
+      transition: left .55s ease;
+      z-index: 0;
+    }
+    .ticket-card:hover::before { left: 150%; }
+    .ticket-card.featured { animation: hqRise .6s cubic-bezier(.2,.7,.2,1) .14s both, hqFloat 3.4s ease-in-out 1s infinite; }
+    .ticket-card.featured .badge { animation: hqBadgeGlow 2.4s ease-in-out infinite; }
+
+    /* — animated accent bar on stat cards — */
+    .stat-card::after {
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--steel), var(--green), var(--red));
+      background-size: 200% 100%;
+      animation: hqStatBar 4.5s linear infinite;
+    }
+
+    /* — floating admin trigger with pulse ring — */
+    .admin-trigger { animation: hqFloat 3.6s ease-in-out infinite; }
+    .admin-trigger::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 30px;
+      border: 2px solid rgba(255,209,102,.55);
+      animation: hqRing 2.6s ease-out infinite;
+      pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+    }
+    /* End flashy motion & lighting layer */
+
+
+    /* ════════════════════════════════════════════════
+       CINEMATIC FINALE LAYER  (embers · spotlight · scan)
+       ════════════════════════════════════════════════ */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px; width: 0;
+      z-index: 600;
+      pointer-events: none;
+      background: linear-gradient(90deg, var(--red), var(--gold) 42%, var(--steel) 74%, var(--green));
+      box-shadow: 0 0 14px rgba(255,209,102,.5), 0 0 22px rgba(40,215,199,.34);
+    }
+
+    .hero-fx {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    #emberCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.9;
+      mix-blend-mode: screen;
+    }
+
+    .hero-spotlight {
+      position: absolute;
+      left: clamp(2%, 13vw, 17%);
+      top: 40%;
+      width: min(64vw, 760px);
+      aspect-ratio: 1;
+      transform: translate(-30%, -50%);
+      background: conic-gradient(from 0deg,
+        transparent 0 8deg,
+        rgba(255,209,102,0.12) 14deg 24deg,
+        transparent 30deg 102deg,
+        rgba(40,215,199,0.10) 110deg 124deg,
+        transparent 130deg 230deg,
+        rgba(255,59,48,0.10) 242deg 256deg,
+        transparent 264deg);
+      filter: blur(6px);
+      opacity: 0.7;
+      animation: hqSpin 30s linear infinite;
+    }
+    @keyframes hqSpin { to { transform: translate(-30%, -50%) rotate(360deg); } }
+
+    .hero-scan {
+      position: absolute;
+      top: -20%; bottom: -20%;
+      left: -30%;
+      width: 22%;
+      background: linear-gradient(100deg, transparent, rgba(40,215,199,0.12) 40%, rgba(255,255,255,0.16) 50%, rgba(40,215,199,0.12) 60%, transparent);
+      filter: blur(2px);
+      transform: skewX(-12deg);
+      animation: hqSweep 7.5s ease-in-out 1.2s infinite;
+    }
+    @keyframes hqSweep {
+      0%   { left: -30%; opacity: 0; }
+      14%  { opacity: 1; }
+      46%  { left: 120%; opacity: 0; }
+      100% { left: 120%; opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-spotlight, .hero-scan { animation: none; }
+      #emberCanvas { display: none; }
+    }
+    /* ── Tale of the Tape & VS card ── */
+    #matchup .section-head { margin-bottom: 2rem; }
+    .bout-banner {
+      display: block; width: fit-content; margin: 0 auto 2.25rem;
+      padding: .58rem 1.5rem;
+      font-family: 'Oswald', sans-serif; font-size: clamp(.78rem, 2vw, 1rem);
+      letter-spacing: .28em; text-transform: uppercase; color: #050507;
+      background: linear-gradient(135deg, var(--gold), #FFB000 55%, var(--green));
+      clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+      box-shadow: 0 10px 30px rgba(255,209,102,.22);
+    }
+    .vs-card {
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch;
+      gap: clamp(.5rem, 2vw, 1.5rem);
+    }
+    .vs-fighter {
+      position: relative; display: flex; flex-direction: column; align-items: center; text-align: center;
+      padding: clamp(1rem, 3vw, 1.75rem) 1rem 1.5rem;
+      border: 1px solid var(--line);
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+      overflow: hidden;
+    }
+    .vs-fighter::before { content:''; position:absolute; left:0; right:0; top:0; height:4px; }
+    .red-corner { border-color: rgba(255,59,48,.4);
+      background: linear-gradient(160deg, rgba(255,59,48,.13), transparent 46%), var(--surf2); }
+    .red-corner::before { background: linear-gradient(90deg, var(--red), transparent); }
+    .blue-corner { border-color: rgba(77,163,255,.42);
+      background: linear-gradient(160deg, rgba(77,163,255,.13), transparent 46%), var(--surf2); }
+    .blue-corner::before { background: linear-gradient(270deg, var(--blue), transparent); }
+    .corner-tag {
+      font-family:'Oswald',sans-serif; font-size:.6rem; letter-spacing:.26em; text-transform:uppercase;
+      padding:.3rem .7rem; margin-bottom:1rem; border:1px solid var(--line); background: rgba(5,5,7,.5);
+    }
+    .red-corner .corner-tag { color:#FF8A80; border-color: rgba(255,59,48,.4); }
+    .blue-corner .corner-tag { color:#9CCBFF; border-color: rgba(77,163,255,.42); }
+    .vs-photo {
+      width: 100%; max-width: 240px; aspect-ratio: 3/4; margin-bottom: 1rem;
+      background-size: cover; background-position: center top; background-color: #0b0d12;
+      border: 1px solid var(--line);
+      box-shadow: inset 0 -64px 60px rgba(5,5,7,.72);
+    }
+    .vs-photo-empty { display:flex; align-items:center; justify-content:center;
+      background: radial-gradient(ellipse at 50% 28%, rgba(255,255,255,.06), transparent 60%), #0b0d12; }
+    .vs-photo-empty span { font-family:'Oswald',sans-serif; font-size:4rem; font-weight:700; color: rgba(247,241,228,.18); }
+    .vs-name { font-family:'Oswald',sans-serif; font-size: clamp(1.1rem,3vw,1.75rem); font-weight:700; letter-spacing:.04em; text-transform:uppercase; line-height:1.05; }
+    .vs-name-ja { font-size:.85rem; color: var(--muted); margin-top:.2rem; }
+    .vs-record { font-family:'Oswald',sans-serif; font-size: clamp(1rem,2.6vw,1.4rem); font-weight:600; color: var(--gold); margin-top:.6rem; text-shadow: 0 0 16px rgba(255,209,102,.18); }
+    .vs-emblem { display:flex; align-items:center; justify-content:center; }
+    .vs-emblem span {
+      font-family:'Oswald',sans-serif; font-weight:700; font-style:italic;
+      font-size: clamp(1.8rem, 6vw, 3.6rem); letter-spacing:-.02em; color: var(--off);
+      -webkit-text-stroke: 1px rgba(255,209,102,.4);
+      text-shadow: 0 0 26px rgba(255,59,48,.4), 0 0 42px rgba(77,163,255,.26);
+      animation: hqFloat 3.2s ease-in-out infinite;
+    }
+    .tape { margin-top: clamp(1.5rem,4vw,2.5rem); border: 1px solid var(--line);
+      background: linear-gradient(150deg, rgba(40,215,199,.06), transparent 44%), rgba(7,7,6,.42); }
+    .tape-head, .tape-row { display:grid; grid-template-columns: 1fr auto 1fr; align-items:center; }
+    .tape-head { padding: .85rem 1.25rem; border-bottom:1px solid var(--line);
+      font-family:'Oswald',sans-serif; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; }
+    .tape-head span:first-child { text-align:right; color:#FF8A80; }
+    .tape-head span:last-child { text-align:left; color:#9CCBFF; }
+    .tape-head-mid { color: var(--steel); padding:0 1rem; letter-spacing:.24em; }
+    .tape-row { padding: .8rem 1.25rem; border-bottom:1px solid rgba(255,255,255,.05); }
+    .tape-row:last-child { border-bottom:none; }
+    .tape-self, .tape-opp { font-family:'Oswald',sans-serif; font-size: clamp(1rem,2.4vw,1.35rem); font-weight:600; }
+    .tape-self { text-align:right; }
+    .tape-opp { text-align:left; }
+    .tape-label { padding:0 1rem; font-family:'Oswald',sans-serif; font-size:.66rem; letter-spacing:.18em; text-transform:uppercase; color: var(--steel); white-space:nowrap; }
+    #matchup:not(.hidden) #matchupInner > * { animation: hqRise .6s cubic-bezier(.2,.7,.2,1) both; }
+
+    @media (max-width: 640px) {
+      .vs-card { grid-template-columns: 1fr; }
+      .vs-emblem { padding: .35rem 0; }
+      .vs-emblem span { animation: none; }
+      .vs-photo { max-width: 180px; }
+      .tape-self, .tape-opp { font-size: 1rem; }
+      .tape-head { font-size: .62rem; }
+    }
+
+    /* ── VS stage poster backdrop + emblem + toggles ── */
+    @keyframes hqSpin360 { to { transform: rotate(360deg); } }
+    .vs-stage {
+      position: relative; padding: clamp(1rem, 3vw, 2rem); overflow: hidden;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(106deg, rgba(255,59,48,.17) 0 43%, transparent 43% 57%, rgba(77,163,255,.17) 57% 100%),
+        radial-gradient(ellipse 42% 72% at 50% 50%, rgba(255,209,102,.09), transparent 70%),
+        rgba(7,7,6,.5);
+      clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+    }
+    .vs-stage::before {
+      content:''; position:absolute; top:-12%; bottom:-12%; left:50%; width:2px;
+      transform: translateX(-50%) skewX(-9deg);
+      background: linear-gradient(180deg, transparent, rgba(255,209,102,.55), rgba(40,215,199,.4), transparent);
+      box-shadow: 0 0 26px rgba(255,209,102,.5);
+    }
+    .vs-stage .vs-card { position: relative; z-index: 1; background: transparent; }
+    .vs-fighter { backdrop-filter: blur(2px); transition: transform .3s, box-shadow .3s; }
+    .red-corner:hover { transform: translateY(-5px); box-shadow: 0 18px 50px rgba(255,59,48,.28); }
+    .blue-corner:hover { transform: translateY(-5px); box-shadow: 0 18px 50px rgba(77,163,255,.28); }
+    .vs-photo { transition: filter .3s, transform .3s; }
+    .vs-fighter:hover .vs-photo { filter: brightness(1.08) contrast(1.05); }
+    .vs-emblem {
+      position: relative; align-self: center; flex-shrink: 0;
+      width: clamp(62px, 11vw, 104px); height: clamp(62px, 11vw, 104px); border-radius: 50%;
+      background: radial-gradient(circle at 50% 34%, rgba(255,247,230,.12), rgba(7,7,6,.88));
+      border: 1px solid rgba(255,209,102,.42);
+      box-shadow: 0 0 32px rgba(255,59,48,.3), inset 0 0 22px rgba(40,215,199,.2);
+    }
+    .vs-emblem::before {
+      content:''; position:absolute; inset:-6px; border-radius:50%;
+      border: 1.5px dashed rgba(255,209,102,.45);
+      animation: hqSpin360 14s linear infinite;
+    }
+
+    .hq-switch {
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+      padding:.8rem 1rem; border:1px solid var(--line); background:rgba(5,5,7,.4); margin-bottom:.65rem;
+    }
+    .hq-switch:last-child { margin-bottom:0; }
+    .hq-switch-label { font-family:'Barlow',sans-serif; font-size:.92rem; color:var(--off); }
+    .hq-toggle { position:relative; width:52px; height:28px; flex-shrink:0; cursor:pointer; }
+    .hq-toggle input { position:absolute; opacity:0; width:0; height:0; }
+    .hq-toggle .track { position:absolute; inset:0; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid var(--line); transition:.22s; }
+    .hq-toggle .thumb { position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:var(--muted); transition:.22s; }
+    .hq-toggle input:checked ~ .track { background:linear-gradient(90deg, var(--steel), var(--gold)); border-color:transparent; box-shadow:0 0 16px rgba(40,215,199,.35); }
+    .hq-toggle input:checked ~ .track .thumb { transform:translateX(24px); background:#050507; }
+
+    .form-group input[type="date"], .form-group input[type="time"] { color-scheme: dark; }
+
+    /* End cinematic finale layer */
+
   </style>
 </head>
 <body>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- PUBLIC SITE -->
   <div id="publicSite">
     <section class="hero" id="top">
       <div class="hero-bg" id="heroBg"></div>
+      <div class="hero-fx" aria-hidden="true">
+        <div class="hero-spotlight"></div>
+        <canvas id="emberCanvas"></canvas>
+        <div class="hero-scan"></div>
+      </div>
       <div class="hero-inner">
         <p class="hero-eyebrow" id="heroEyebrow">Professional Boxer · Salaryman Fighter</p>
         <img class="hero-profile hidden" id="heroProfile" alt="Fighter">
@@ -2187,9 +2537,18 @@
           <p class="hero-notice">※ 試合日・会場・開始時間は変更になる場合があります。最新情報はSNSでご確認ください。</p>
         </div>
         <div class="hero-meta">
-          <p class="hero-sub">この一戦を会場で。応援チケット受付中</p>
+          <p class="hero-sub">この一戦、生で目撃せよ。応援チケット受付中。</p>
           <a href="#apply" class="btn btn-primary">チケットを申し込む</a>
         </div>
+      </div>
+    </section>
+
+    <section id="matchup" class="hidden">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title"><span>The Matchup</span>対戦カード</h2>
+        </div>
+        <div id="matchupInner"></div>
       </div>
     </section>
 
@@ -2309,7 +2668,7 @@
       <div class="wizard-step" id="wStep2">
         <h2 class="wizard-title">STEP 2 / 4</h2>
         <p class="wizard-sub">次の試合の情報を入力してください。<br>試合のたびにあとから変更できます。</p>
-        <div class="form-group"><label>試合日</label><input type="text" id="wFightDate" placeholder="2025年12月14日（日）"></div>
+        <div class="form-group"><label>試合日</label><input type="date" id="wFightDate"></div>
         <div class="form-group"><label>会場</label><input type="text" id="wVenue" placeholder="○○アリーナ"></div>
         <div class="form-group"><label>一般席（円）</label><input type="number" id="wPriceG" value="3000"></div>
         <div class="form-group"><label>リングサイド（円）</label><input type="number" id="wPriceR" value="5000"></div>
@@ -2386,7 +2745,7 @@
           <form id="settingsForm">
             <div class="quick-edit mobile-only">
               <h3>⚡ 試合クイック更新</h3>
-              <div class="form-group"><label>試合日</label><input type="text" id="qFightDate"></div>
+              <div class="form-group"><label>試合日</label><input type="date" id="qFightDate"></div>
               <div class="form-group"><label>会場</label><input type="text" id="qVenue"></div>
               <div class="form-group"><label>ポスター写真</label>
                 <label class="photo-upload-btn"><input type="file" id="qPosterFile" accept="image/*">写真ライブラリから選択</label>
@@ -2437,10 +2796,64 @@
             <div class="settings-section">
               <h3>試合情報</h3>
               <div class="settings-grid">
-                <div class="form-group"><label>試合日</label><input type="text" id="sFightDate"></div>
+                <div class="form-group"><label>試合日</label><input type="date" id="sFightDate"></div>
                 <div class="form-group"><label>会場</label><input type="text" id="sVenue"></div>
-                <div class="form-group"><label>開場時間</label><input type="text" id="sDoors"></div>
-                <div class="form-group"><label>開始時間</label><input type="text" id="sStart"></div>
+                <div class="form-group"><label>開場時間</label><input type="time" id="sDoors"></div>
+                <div class="form-group"><label>開始時間</label><input type="time" id="sStart"></div>
+              </div>
+            </div>
+            <div class="settings-section">
+              <h3>👁 公開ページでの表示</h3>
+              <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">下の項目を公開ページに出すかどうかを選べます。OFFにすれば入力済みでも非表示になります。</p>
+              <div class="hq-switch">
+                <span class="hq-switch-label">⚔️ 対戦カード（VS）を表示</span>
+                <label class="hq-toggle"><input type="checkbox" id="sShowVs"><span class="track"><span class="thumb"></span></span></label>
+              </div>
+              <div class="hq-switch">
+                <span class="hq-switch-label">🥊 Tale of the Tape（戦績表）を表示</span>
+                <label class="hq-toggle"><input type="checkbox" id="sShowTape"><span class="track"><span class="thumb"></span></span></label>
+              </div>
+            </div>
+            <div class="settings-section">
+              <h3>🥊 戦績・スペック（Tale of the Tape）</h3>
+              <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">入力した項目だけ公開ページに表示されます（空欄は非表示）</p>
+              <div class="settings-grid">
+                <div class="form-group"><label>戦績<span class="field-hint">例: 12-0-0</span></label><input type="text" id="sRecord" placeholder="12-0-0"></div>
+                <div class="form-group"><label>KO勝数<span class="field-hint">例: 8</span></label><input type="text" id="sKo" placeholder="8"></div>
+                <div class="form-group"><label>身長<span class="field-hint">例: 178cm</span></label><input type="text" id="sHeight" placeholder="178cm"></div>
+                <div class="form-group"><label>リーチ<span class="field-hint">例: 180cm</span></label><input type="text" id="sReach" placeholder="180cm"></div>
+                <div class="form-group"><label>体重<span class="field-hint">例: 66.7kg</span></label><input type="text" id="sWeight" placeholder="66.7kg"></div>
+                <div class="form-group"><label>構え<span class="field-hint">例: オーソドックス</span></label><input type="text" id="sStance" placeholder="オーソドックス"></div>
+                <div class="form-group"><label>年齢<span class="field-hint">例: 28</span></label><input type="text" id="sAge" placeholder="28"></div>
+              </div>
+            </div>
+            <div class="settings-section">
+              <h3>⚔️ 対戦カード</h3>
+              <div class="settings-grid">
+                <div class="form-group"><label>カード種別<span class="field-hint">例: MAIN EVENT</span></label><input type="text" id="sBoutType" placeholder="MAIN EVENT"></div>
+                <div class="form-group"><label>階級<span class="field-hint">例: スーパーライト級</span></label><input type="text" id="sBoutClass" placeholder="スーパーライト級"></div>
+                <div class="form-group"><label>ラウンド数<span class="field-hint">例: 10回戦</span></label><input type="text" id="sBoutRounds" placeholder="10回戦"></div>
+              </div>
+              <h3 style="margin-top:1.25rem;">対戦相手（Blue Corner）</h3>
+              <div class="settings-grid">
+                <div class="form-group"><label>リングネーム<span class="field-hint">未定なら空欄 → TBA 表示</span></label><input type="text" id="sOppNameEn" placeholder="OPPONENT"></div>
+                <div class="form-group"><label>本名・日本語</label><input type="text" id="sOppNameJa"></div>
+                <div class="form-group"><label>戦績</label><input type="text" id="sOppRecord" placeholder="10-2-0"></div>
+                <div class="form-group"><label>KO勝数</label><input type="text" id="sOppKo"></div>
+                <div class="form-group"><label>身長</label><input type="text" id="sOppHeight"></div>
+                <div class="form-group"><label>リーチ</label><input type="text" id="sOppReach"></div>
+                <div class="form-group"><label>体重</label><input type="text" id="sOppWeight"></div>
+                <div class="form-group"><label>構え</label><input type="text" id="sOppStance"></div>
+                <div class="form-group"><label>年齢</label><input type="text" id="sOppAge"></div>
+                <div class="form-group">
+                  <label>相手の写真</label>
+                  <input type="url" id="sPhotoOppUrl" placeholder="https://... または下でアップロード">
+                  <label class="photo-upload-btn"><input type="file" id="sPhotoOppFile" accept="image/*">写真ライブラリから選択</label>
+                  <img class="photo-preview" id="prevOpp" alt="">
+                  <div class="photo-actions">
+                    <button type="button" class="photo-delete-btn hidden" data-clear="photoOpp" data-url="sPhotoOppUrl" data-file="sPhotoOppFile" data-preview="prevOpp">🗑 写真を削除</button>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="settings-section">
@@ -2587,7 +3000,7 @@
       heroLine2: 'NAME',
       tagline: 'Professional Boxer / Salaryman Fighter',
       pin: '1234',
-      fightDate: '2025年12月14日（日）',
+      fightDate: '2025-12-14',
       venue: '○○アリーナ',
       doors: '17:00',
       start: '18:00',
@@ -2609,6 +3022,28 @@
       photoHero: '',
       photoProfile: '',
       photoPoster: '',
+      record: '',
+      ko: '',
+      height: '',
+      reach: '',
+      weight: '',
+      stance: '',
+      age: '',
+      boutType: 'MAIN EVENT',
+      boutClass: '',
+      boutRounds: '',
+      oppNameEn: '',
+      oppNameJa: '',
+      oppRecord: '',
+      oppKo: '',
+      oppHeight: '',
+      oppReach: '',
+      oppWeight: '',
+      oppStance: '',
+      oppAge: '',
+      photoOpp: '',
+      showVs: true,
+      showTape: true,
       apiUrl: '',
       spreadsheetUrl: '',
       publicUrl: '',
@@ -2898,7 +3333,8 @@
       var map = {
         photoHero: ['sPhotoHeroUrl', 'sPhotoHeroFile', 'prevHero'],
         photoProfile: ['sPhotoProfileUrl', 'sPhotoProfileFile', 'prevProfile'],
-        photoPoster: ['sPhotoPosterUrl', 'sPhotoPosterFile', 'prevPoster']
+        photoPoster: ['sPhotoPosterUrl', 'sPhotoPosterFile', 'prevPoster'],
+        photoOpp: ['sPhotoOppUrl', 'sPhotoOppFile', 'prevOpp']
       };
       data.settings[settingKey] = '';
       var ids = map[settingKey];
@@ -2910,6 +3346,25 @@
 
     function fmtYen(n) {
       return '¥' + Number(n).toLocaleString('ja-JP');
+    }
+
+    function toISODate(str) {
+      str = (str || '').toString().trim();
+      if (/^\d{4}-\d{2}-\d{2}$/.test(str)) return str;
+      var m = str.match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
+      if (m) return m[1] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[3]).slice(-2);
+      return '';
+    }
+
+    function displayDate(val) {
+      val = (val || '').toString().trim();
+      if (!val) return '';
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(val)) return val;
+      var p = val.split('-');
+      var dt = new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+      if (isNaN(dt.getTime())) return val;
+      var days = ['日', '月', '火', '水', '木', '金', '土'];
+      return p[0] + '年' + Number(p[1]) + '月' + Number(p[2]) + '日（' + days[dt.getDay()] + '）';
     }
 
     function ticketPrice(type) {
@@ -2945,6 +3400,82 @@
       }
     }
 
+    function renderMatchup() {
+      var s = data.settings;
+      var section = document.getElementById('matchup');
+      if (!section) return;
+      function v(x) { return (x == null ? '' : String(x)).trim(); }
+      function esc(x) { return v(x).replace(/[&<>"]/g, function(c) { return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]; }); }
+
+      var showVs = s.showVs !== false;
+      var showTape = s.showTape !== false;
+      var hasVsData = [s.record, s.height, s.reach, s.weight, s.stance, s.age].some(v) || v(s.oppNameEn) || v(s.oppNameJa) || v(s.oppRecord);
+
+      var banner = [s.boutType, s.boutClass, s.boutRounds].map(v).filter(Boolean).join(' · ');
+      function recFmt(r, k) { r = v(r); k = v(k); return r ? (r + (k ? ' (' + k + 'KO)' : '')) : ''; }
+      function photoCell(src, name) {
+        if (v(src)) return '<div class="vs-photo" style="background-image:url(\'' + v(src).replace(/'/g, '%27') + '\')"></div>';
+        var init = (v(name).charAt(0) || '?').toUpperCase();
+        return '<div class="vs-photo vs-photo-empty"><span>' + esc(init) + '</span></div>';
+      }
+
+      var selfRec = recFmt(s.record, s.ko);
+      var oppRec = recFmt(s.oppRecord, s.oppKo);
+      var selfName = v(s.nameEn) || 'YOUR NAME';
+      var oppName = v(s.oppNameEn) || 'TBA';
+
+      var vs = '';
+      if (showVs && hasVsData) {
+        vs =
+          '<div class="vs-stage"><div class="vs-card">' +
+            '<div class="vs-fighter red-corner">' +
+              '<span class="corner-tag">Red Corner</span>' +
+              photoCell(s.photoProfile, selfName) +
+              '<div class="vs-name">' + esc(selfName) + '</div>' +
+              (v(s.nameJa) ? '<div class="vs-name-ja">' + esc(s.nameJa) + '</div>' : '') +
+              (selfRec ? '<div class="vs-record">' + esc(selfRec) + '</div>' : '') +
+            '</div>' +
+            '<div class="vs-emblem"><span>VS</span></div>' +
+            '<div class="vs-fighter blue-corner">' +
+              '<span class="corner-tag">Blue Corner</span>' +
+              photoCell(s.photoOpp, oppName) +
+              '<div class="vs-name">' + esc(oppName) + '</div>' +
+              (v(s.oppNameJa) ? '<div class="vs-name-ja">' + esc(s.oppNameJa) + '</div>' : '') +
+              (oppRec ? '<div class="vs-record">' + esc(oppRec) + '</div>' : '') +
+            '</div>' +
+          '</div></div>';
+      }
+
+      var tape = '';
+      if (showTape) {
+        var rows = [
+          ['戦績', selfRec, oppRec],
+          ['身長', s.height, s.oppHeight],
+          ['リーチ', s.reach, s.oppReach],
+          ['体重', s.weight, s.oppWeight],
+          ['構え', s.stance, s.oppStance],
+          ['年齢', s.age, s.oppAge]
+        ];
+        var tapeRows = rows.filter(function(r) { return v(r[1]) || v(r[2]); }).map(function(r) {
+          return '<div class="tape-row">' +
+            '<div class="tape-self">' + esc(v(r[1]) || '—') + '</div>' +
+            '<div class="tape-label">' + esc(r[0]) + '</div>' +
+            '<div class="tape-opp">' + esc(v(r[2]) || '—') + '</div>' +
+          '</div>';
+        }).join('');
+        if (tapeRows) {
+          tape = '<div class="tape"><div class="tape-head"><span>' + esc(selfName) + '</span>' +
+            '<span class="tape-head-mid">Tale of the Tape</span><span>' + esc(oppName) + '</span></div>' +
+            tapeRows + '</div>';
+        }
+      }
+
+      if (!vs && !tape) { section.classList.add('hidden'); return; }
+      section.classList.remove('hidden');
+      document.getElementById('matchupInner').innerHTML =
+        (banner ? '<div class="bout-banner">' + esc(banner) + '</div>' : '') + vs + tape;
+    }
+
     function renderPublic() {
       const s = data.settings;
       document.title = 'Fight Night Tickets | ' + s.nameEn;
@@ -2953,8 +3484,8 @@
       document.getElementById('heroTitle').textContent = s.nameEn || 'YOUR NAME';
       document.getElementById('heroNameJa').textContent = s.nameJa;
       document.getElementById('heroFightMeta').textContent =
-        s.fightDate + ' · ' + s.venue + ' · 開場 ' + s.doors + ' / 開始 ' + s.start;
-      document.getElementById('heroDateChip').textContent = s.fightDate || '-';
+        displayDate(s.fightDate) + ' · ' + s.venue + ' · 開場 ' + s.doors + ' / 開始 ' + s.start;
+      document.getElementById('heroDateChip').textContent = displayDate(s.fightDate) || '-';
       document.getElementById('heroVenueChip').textContent = s.venue || '-';
       document.getElementById('heroStartChip').textContent = (s.doors || '-') + ' / ' + (s.start || '-');
 
@@ -3008,6 +3539,7 @@
         '<p class="footer-copy">&copy; ' + s.copyrightYear + ' ' + s.nameEn + ' / ' + s.nameJa +
         (s.instagram ? ' · ' + s.instagram : '') + (s.facebook ? ' · ' + s.facebook : '') + '</p>';
 
+      renderMatchup();
       renderPaymentDetails(document.getElementById('fPayment').value);
     }
 
@@ -3193,7 +3725,8 @@
       var map = {
         photoHero: ['sPhotoHeroUrl', 'sPhotoHeroFile', 'prevHero'],
         photoProfile: ['sPhotoProfileUrl', 'sPhotoProfileFile', 'prevProfile'],
-        photoPoster: ['sPhotoPosterUrl', 'sPhotoPosterFile', 'prevPoster']
+        photoPoster: ['sPhotoPosterUrl', 'sPhotoPosterFile', 'prevPoster'],
+        photoOpp: ['sPhotoOppUrl', 'sPhotoOppFile', 'prevOpp']
       };
       var ids = map[settingKey];
       if (ids) updatePhotoUI(settingKey, ids[0], ids[1], ids[2]);
@@ -3227,7 +3760,11 @@
         sPriceGroup: s.priceGroup, sPhone: s.phone, sPhoneHours: s.phoneHours, sEmail: s.email,
         sGoogleForm: s.googleForm, sInstagram: s.instagram, sFacebook: s.facebook,
         sBank: s.bank, sAccountType: s.accountType, sAccountNum: s.accountNum, sAccountName: s.accountName,
-        sNotifyEmail: s.notifyEmail || s.email, sApiUrl: s.apiUrl || '', sPublicUrl: s.publicUrl || ''
+        sNotifyEmail: s.notifyEmail || s.email, sApiUrl: s.apiUrl || '', sPublicUrl: s.publicUrl || '',
+        sRecord: s.record, sKo: s.ko, sHeight: s.height, sReach: s.reach, sWeight: s.weight,
+        sStance: s.stance, sAge: s.age, sBoutType: s.boutType, sBoutClass: s.boutClass, sBoutRounds: s.boutRounds,
+        sOppNameEn: s.oppNameEn, sOppNameJa: s.oppNameJa, sOppRecord: s.oppRecord, sOppKo: s.oppKo,
+        sOppHeight: s.oppHeight, sOppReach: s.oppReach, sOppWeight: s.oppWeight, sOppStance: s.oppStance, sOppAge: s.oppAge
       };
       Object.entries(fields).forEach(function(pair) {
         var el = document.getElementById(pair[0]);
@@ -3236,7 +3773,11 @@
       showPhotoPreview('photoHero');
       showPhotoPreview('photoProfile');
       showPhotoPreview('photoPoster');
-      document.getElementById('qFightDate').value = s.fightDate;
+      showPhotoPreview('photoOpp');
+      document.getElementById('sShowVs').checked = s.showVs !== false;
+      document.getElementById('sShowTape').checked = s.showTape !== false;
+      document.getElementById('sFightDate').value = toISODate(s.fightDate);
+      document.getElementById('qFightDate').value = toISODate(s.fightDate);
       document.getElementById('qVenue').value = s.venue;
       updateFighterPreview();
     }
@@ -3250,6 +3791,9 @@
       }
       if (document.getElementById('sPhotoPosterUrl').value.trim()) {
         data.settings.photoPoster = document.getElementById('sPhotoPosterUrl').value.trim();
+      }
+      if (document.getElementById('sPhotoOppUrl').value.trim()) {
+        data.settings.photoOpp = document.getElementById('sPhotoOppUrl').value.trim();
       }
       return {
         nameEn: document.getElementById('sNameEn').value.trim(),
@@ -3280,7 +3824,29 @@
         publicUrl: document.getElementById('sPublicUrl').value.trim(),
         photoHero: data.settings.photoHero,
         photoProfile: data.settings.photoProfile,
-        photoPoster: data.settings.photoPoster
+        photoPoster: data.settings.photoPoster,
+        photoOpp: data.settings.photoOpp,
+        record: document.getElementById('sRecord').value.trim(),
+        ko: document.getElementById('sKo').value.trim(),
+        height: document.getElementById('sHeight').value.trim(),
+        reach: document.getElementById('sReach').value.trim(),
+        weight: document.getElementById('sWeight').value.trim(),
+        stance: document.getElementById('sStance').value.trim(),
+        age: document.getElementById('sAge').value.trim(),
+        boutType: document.getElementById('sBoutType').value.trim(),
+        boutClass: document.getElementById('sBoutClass').value.trim(),
+        boutRounds: document.getElementById('sBoutRounds').value.trim(),
+        oppNameEn: document.getElementById('sOppNameEn').value.trim(),
+        oppNameJa: document.getElementById('sOppNameJa').value.trim(),
+        oppRecord: document.getElementById('sOppRecord').value.trim(),
+        oppKo: document.getElementById('sOppKo').value.trim(),
+        oppHeight: document.getElementById('sOppHeight').value.trim(),
+        oppReach: document.getElementById('sOppReach').value.trim(),
+        oppWeight: document.getElementById('sOppWeight').value.trim(),
+        oppStance: document.getElementById('sOppStance').value.trim(),
+        oppAge: document.getElementById('sOppAge').value.trim(),
+        showVs: document.getElementById('sShowVs').checked,
+        showTape: document.getElementById('sShowTape').checked
       };
     }
 
@@ -3319,7 +3885,7 @@
       document.getElementById('wNameEn').value = s.nameEn;
       document.getElementById('wEmail').value = s.notifyEmail !== 'your@email.com' ? s.notifyEmail : '';
       document.getElementById('wPhone').value = s.phone !== '090-XXXX-XXXX' ? s.phone : '';
-      document.getElementById('wFightDate').value = s.fightDate;
+      document.getElementById('wFightDate').value = toISODate(s.fightDate);
       document.getElementById('wVenue').value = s.venue;
       document.getElementById('wPriceG').value = s.priceGeneral;
       document.getElementById('wPriceR').value = s.priceRingside;
@@ -3696,6 +4262,7 @@
     setupPhotoInput('sPhotoHeroFile', 'sPhotoHeroUrl', 'prevHero', 'photoHero');
     setupPhotoInput('sPhotoProfileFile', 'sPhotoProfileUrl', 'prevProfile', 'photoProfile');
     setupPhotoInput('sPhotoPosterFile', 'sPhotoPosterUrl', 'prevPoster', 'photoPoster');
+    setupPhotoInput('sPhotoOppFile', 'sPhotoOppUrl', 'prevOpp', 'photoOpp');
 
     ['sNameEn', 'sNameJa', 'sTagline'].forEach(function(id) {
       document.getElementById(id).addEventListener('input', updateFighterPreview);
@@ -3726,6 +4293,124 @@
       if (location.hash === '#fighter-hq' || location.hash === '#admin') {
         setTimeout(openAdmin, 300);
       }
+    })();
+  </script>
+
+  <script>
+    /* ── Flashy enhancements: animated stat counters ── */
+    (function() {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      function animateCount(el) {
+        var raw = (el.textContent || '').trim();
+        var num = parseInt(raw.replace(/[^\d]/g, ''), 10);
+        if (isNaN(num) || num <= 0) return;
+        var prefix = (raw.match(/^[^\d]*/) || [''])[0];
+        var suffix = (raw.match(/[^\d]*$/) || [''])[0];
+        var dur = 850, start = null;
+        function step(ts) {
+          if (start === null) start = ts;
+          var p = Math.min(1, (ts - start) / dur);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = prefix + Math.round(num * eased).toLocaleString('ja-JP') + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      function run(root) {
+        root.querySelectorAll('.stat-value:not([data-counted])').forEach(function(el) {
+          el.setAttribute('data-counted', '1');
+          animateCount(el);
+        });
+      }
+
+      var panel = document.getElementById('panel-dashboard');
+      if (!panel) return;
+      var mo = new MutationObserver(function(muts) {
+        var added = muts.some(function(m) { return m.addedNodes && m.addedNodes.length; });
+        if (added) run(panel);
+      });
+      mo.observe(panel, { childList: true, subtree: true });
+    })();
+  </script>
+
+  <script>
+    /* ── Cinematic finale: scroll progress + hero embers ── */
+    (function() {
+      var bar = document.getElementById('scrollProgress');
+      if (bar) {
+        var tick = function() {
+          var doc = document.documentElement;
+          var max = doc.scrollHeight - doc.clientHeight;
+          var p = max > 0 ? (doc.scrollTop || document.body.scrollTop) / max : 0;
+          bar.style.width = (p * 100).toFixed(2) + '%';
+        };
+        window.addEventListener('scroll', tick, { passive: true });
+        window.addEventListener('resize', tick);
+        tick();
+      }
+
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var canvas = document.getElementById('emberCanvas');
+      if (!canvas || reduce) return;
+      var ctx = canvas.getContext('2d');
+      var hero = document.getElementById('top');
+      var W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var COLORS = ['255,209,102', '40,215,199', '255,59,48', '255,247,230'];
+      var embers = [];
+      var COUNT = 0;
+
+      function resize() {
+        var r = hero.getBoundingClientRect();
+        W = r.width; H = r.height;
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        COUNT = Math.max(26, Math.min(54, Math.round(W / 26)));
+        while (embers.length < COUNT) embers.push(spawn(true));
+        embers.length = COUNT;
+      }
+
+      function spawn(initial) {
+        return {
+          x: Math.random() * W,
+          y: initial ? Math.random() * H : H + Math.random() * 40,
+          r: 0.7 + Math.random() * 2.1,
+          vy: 0.25 + Math.random() * 0.85,
+          vx: (Math.random() - 0.5) * 0.4,
+          drift: Math.random() * Math.PI * 2,
+          driftSpd: 0.008 + Math.random() * 0.02,
+          life: 0,
+          maxLife: 220 + Math.random() * 260,
+          color: COLORS[(Math.random() * COLORS.length) | 0]
+        };
+      }
+
+      function frame() {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < embers.length; i++) {
+          var e = embers[i];
+          e.life++;
+          e.drift += e.driftSpd;
+          e.y -= e.vy;
+          e.x += e.vx + Math.sin(e.drift) * 0.4;
+          if (e.y < -10 || e.life > e.maxLife) { embers[i] = spawn(false); continue; }
+          var fade = Math.sin(Math.min(1, e.life / e.maxLife) * Math.PI);
+          var a = 0.12 + fade * 0.6;
+          ctx.beginPath();
+          ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(' + e.color + ',' + a.toFixed(3) + ')';
+          ctx.shadowBlur = 8 + e.r * 4;
+          ctx.shadowColor = 'rgba(' + e.color + ',' + (a * 0.9).toFixed(3) + ')';
+          ctx.fill();
+        }
+        ctx.shadowBlur = 0;
+        requestAnimationFrame(frame);
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+      requestAnimationFrame(frame);
     })();
   </script>
 </body>
